@@ -1,0 +1,13 @@
+.Active{
+    color: rgb(40, 255, 255);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+}
+
+.noActive{
+     color: white;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+}
