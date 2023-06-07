@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import useAuth from "../../../components/Hooks/useAuth";
 import { useState } from "react";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 
 const Registration = () => {
@@ -43,7 +44,7 @@ const Registration = () => {
 
 
     return (
-        <div className="hero h-[120vh] " style={{ backgroundImage: `url(${regImg})` }}>
+        <div className="hero h-[130vh] " style={{ backgroundImage: `url(${regImg})` }}>
             <Helmet>
                 <title>Photograph Space | Registration</title>
             </Helmet>
@@ -107,6 +108,7 @@ const Registration = () => {
                         Already have an account
                         <Link to="/login" className='font-bold'> Login</Link></small></p>
                     <div className='divider'></div>
+                    <SocialLogin></SocialLogin>
                 </form>
             </div>
         </div>

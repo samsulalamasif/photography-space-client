@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import loginImg from "../../../assets/login.jpg"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { set, useForm } from 'react-hook-form';
 import useAuth from '../../../components/Hooks/useAuth';
 import Swal from 'sweetalert2';
+import SocialLogin from '../SocialLogin/SocialLogin';
 
 
 const Login = () => {
     const [error, setError] = useState("");
     const { signIn } = useAuth()
-    // const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
-        console.log(data);
         const email = data.email
         const password = data.password
-
 
         setError("")
         signIn(email, password)
@@ -31,11 +34,11 @@ const Login = () => {
                     timer: 1500
                 })
                 reset()
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 setError(error.message);
             })
-
 
     };
 
@@ -70,7 +73,7 @@ const Login = () => {
                         New Here?
                         <Link to="/registration" className='font-bold'> Create an account</Link></small></p>
                     <div className='divider'></div>
-
+                    <SocialLogin></SocialLogin>
                 </form>
             </div>
         </div>
