@@ -1,13 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import loginImg from "../../../assets/login.jpg"
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { set, useForm } from 'react-hook-form';
+import useAuth from '../../../components/Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [error, setError] = useState("");
+    const { signIn } = useAuth()
+    // const navigate = useNavigate()
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data);
+        const email = data.email
+        const password = data.password
+
+
+        setError("")
+        signIn(email, password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Login Successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                reset()
+            })
+            .catch(error => {
+                setError(error.message);
+            })
+
 
     };
 
@@ -28,21 +56,21 @@ const Login = () => {
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="password" {...register("password",
-                            { minLength: 6, pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/ })}
+                        <input type="password" {...register("password")}
                             placeholder="Password" required className="input input-bordered" />
-                        {errors.password?.type === 'minLength' &&
-                            <p className="text-red-600 text-sm">Password must be 6 characters</p>}
-                        {errors.password?.type === 'pattern' && <p className="text-red-600 text-sm ">
-                            Password must have one Uppercase case <br />
-                            and one special character.</p>}
+                        <label className="label">
+                            <span className="label-text font-semibold text-red-600">{error}</span>
+                        </label>
                     </div>
+
                     <div className="form-control mt-6">
-                        <button className="btn bg-sky-700 border-0">Login</button>
+                        <button className="btn bg-sky-700 text-white border-0">Login</button>
                     </div>
                     <p className='text-center font-semibold text-sky-700'><small>
                         New Here?
                         <Link to="/registration" className='font-bold'> Create an account</Link></small></p>
+                    <div className='divider'></div>
+
                 </form>
             </div>
         </div>

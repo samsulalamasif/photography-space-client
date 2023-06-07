@@ -2,12 +2,42 @@ import regImg from "../../../assets/registration.jpg"
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
+import useAuth from "../../../components/Hooks/useAuth";
+import { useState } from "react";
+
 
 const Registration = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        console.log(data);
+    const [success, setSuccess] = useState("")
+    const [error, setError] = useState("");
+    const { createUser, updateUserProfile, logOut } = useAuth()
 
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        const email = data.email
+        const password = data.password
+
+        if (data.password !== data.confirm) {
+            return setError("Your password did't match.")
+        }
+
+        setError(" ")
+        setSuccess(" ")
+        createUser(email, password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.photo)
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch((error) => console.log(error))
+                reset()
+                setSuccess("Your account successfully created.Thank you.")
+                logOut()
+            })
+            .catch(error => {
+                setError(error.message);
+            })
     };
 
 
@@ -58,27 +88,25 @@ const Registration = () => {
                         <label className="label">
                             <span className="label-text">Confirm Password</span>
                         </label>
-                        <input type="password" {...register("confirm",
-                            { minLength: 6, pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/ })}
-                            placeholder="Confirm Password" required className="input input-bordered" />
-                        {/* {errors.confirm?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
-                        {errors.confirm?.type === 'pattern' && <p className="text-red-600 text-sm ">
-                            Password must have one Uppercase case <br />
-                            and one special character.</p>} */}
+                        <input type="password" {...register("confirm")}
+                            placeholder="Confirm Password"
+                            required className="input input-bordered" />
                         {
                             errors.password !== errors.confirm &&
                             <p className="text-red-600 text-sm">Your password did't match.</p>
                         }
+
                     </div>
 
-
+                    <span className="label-text font-semibold text-red-600">{error}</span>
+                    <span className="label-text font-semibold text-sky-700">{success}</span>
                     <div className="form-control mt-6">
-                        <button className="btn bg-sky-700 border-0">Registration</button>
+                        <button className="btn bg-sky-700 text-white border-0">Registration</button>
                     </div>
-                    <div className='divide'></div>
                     <p className='text-center font-semibold text-sky-700'><small>
                         Already have an account
                         <Link to="/login" className='font-bold'> Login</Link></small></p>
+                    <div className='divider'></div>
                 </form>
             </div>
         </div>
