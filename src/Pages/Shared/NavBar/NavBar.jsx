@@ -1,6 +1,7 @@
 import React from 'react';
 import ActiveLink from './ActiveLink/ActiveLink';
 import { Link } from 'react-router-dom';
+import logo from "../../../assets/icon.png"
 
 const NavBar = () => {
     const routeItem = <>
@@ -10,6 +11,17 @@ const NavBar = () => {
         <li><ActiveLink to="dashboard">Dashboard</ActiveLink></li>
     </>
 
+
+    // const { user, logOut } = useContext(AuthContext)
+
+    const user = "ASIF"
+
+    const handleLogOut = () => {
+        /* logOut()
+            .then()
+            .catch(error => console.log(error)) */
+        console.log("asif");
+    }
 
 
 
@@ -24,8 +36,9 @@ const NavBar = () => {
                         {routeItem}
                     </ul>
                 </div>
-                <Link to="/" >
-                    <span className='text-white tracking-widest text-2xl
+                <Link to="/" className='flex items-center gap-2'>
+                    <img className='w-8 h-8 hidden lg:block' src={logo} alt="" />
+                    <span className='text-white tracking-widest text-2xl hidden lg:block
                      font-serif font-semibold'>Photography Space</span>
                 </Link>
             </div>
@@ -35,7 +48,17 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {user && <div className="tooltip tooltip-left" data-tip={user.displayName}>
+                    <img className='w-12 h-12 p-2 rounded-full' src={user.photoURL} />
+                </div>}
+
+
+                {user ?
+                    <button onClick={handleLogOut} className='btn btn-outline text-white'>Logout</button> :
+                    <Link to="/login">
+                        <button className='btn btn-outline text-white'>Login</button>
+                    </Link>
+                }
             </div>
         </div>
     );
