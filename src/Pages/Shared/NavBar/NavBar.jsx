@@ -5,13 +5,13 @@ import logo from "../../../assets/icon.png"
 import useAuth from '../../../components/Hooks/useAuth';
 
 const NavBar = () => {
-    const { user, logOut, loading } = useAuth()
+    const { user, logOut } = useAuth()
 
     const routeItem = <>
         <li><ActiveLink to="/">Home</ActiveLink></li>
         <li><ActiveLink to="instructors">Instructors</ActiveLink></li>
         <li><ActiveLink to="classes">Classes</ActiveLink></li>
-        <li><ActiveLink to="dashboard">Dashboard</ActiveLink></li>
+        {user && <li><ActiveLink to="dashboard">Dashboard</ActiveLink></li>}
     </>
 
 

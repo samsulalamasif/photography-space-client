@@ -1,16 +1,18 @@
 import regImg from "../../../assets/registration.jpg"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import useAuth from "../../../components/Hooks/useAuth";
 import { useState } from "react";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import Swal from "sweetalert2";
 
 
 const Registration = () => {
     const [success, setSuccess] = useState("")
     const [error, setError] = useState("");
     const { createUser, updateUserProfile, logOut } = useAuth()
+    const navigate = useNavigate()
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
@@ -29,7 +31,27 @@ const Registration = () => {
                 console.log(loggedUser);
                 updateUserProfile(data.name, data.photo)
                     .then(result => {
-                        console.log(result);
+                        const savedUser = { name: data.name, email: data.email, photo: data.photo }
+                        fetch("http://localhost:5000/users", {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(savedUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'Registration Successfully',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                    navigate("/")
+                                }
+                            })
                     })
                     .catch((error) => console.log(error))
                 reset()
@@ -92,10 +114,6 @@ const Registration = () => {
                         <input type="password" {...register("confirm")}
                             placeholder="Confirm Password"
                             required className="input input-bordered" />
-                        {
-                            errors.password !== errors.confirm &&
-                            <p className="text-red-600 text-sm">Your password did't match.</p>
-                        }
 
                     </div>
 
