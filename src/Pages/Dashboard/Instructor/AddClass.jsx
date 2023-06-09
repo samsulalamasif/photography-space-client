@@ -3,6 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import useAuth from '../../../components/Hooks/useAuth';
 import { useForm } from 'react-hook-form';
+import useAxiosSecure from '../../../components/Hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 
 const imageToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN
@@ -10,9 +12,12 @@ const imageToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN
 
 const AddClass = () => {
     const { user } = useAuth()
+    const [axiosSecure] = useAxiosSecure()
+
+
     const imageHosting = `https://api.imgbb.com/1/upload?key=${imageToken}`
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
         // console.log(data);
         const formData = new FormData()
@@ -36,12 +41,22 @@ const AddClass = () => {
                     }
                     // console.log(newClass);
 
-
+                    axiosSecure.post("/class", newClass)
+                        .then(res => {
+                            // console.log(res.data);
+                            if (res.data.insertedId) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'A new class has been successfully added',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                reset()
+                            }
+                        })
                 }
             })
-
-
-
     };
 
 
