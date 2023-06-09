@@ -9,10 +9,13 @@ import { MdPayment } from "react-icons/md";
 import { MdPlaylistAddCheckCircle } from "react-icons/md";
 import { BiSelectMultiple } from "react-icons/bi";
 import { BsDatabaseFillAdd } from "react-icons/bs";
+import useAdmin from '../components/Hooks/useAdmin';
+import useInstructor from '../components/Hooks/useInstructor';
 
 const Dashboard = () => {
-    const isAdmin = true
-    const isInstructor = true
+    const [isAdmin] = useAdmin()
+    const [isInstructor] = useInstructor()
+
 
 
     return (
@@ -34,62 +37,34 @@ const Dashboard = () => {
 
                     <ul className="menu p-4 w-80 h-full  bg-sky-700">
 
-                        {/* Admin  */}
 
-                        {
-                            isAdmin ?
-                                <>
-                                    <li><ActiveLink to="/dashboard/allusers"><HiUserGroup>
-                                    </HiUserGroup>Manage Users</ActiveLink></li>
+                        {isAdmin && <>
+                            <li><ActiveLink to="/dashboard/allusers"><HiUserGroup>
+                            </HiUserGroup>Manage Users</ActiveLink></li>
 
-                                    <li><ActiveLink to="/dashboard/allclasses">
-                                        <FaTasks></FaTasks>Manage Classes</ActiveLink></li>
-                                </> :
-                                <>
-                                    <li><ActiveLink to="/dashboard/myclass">
-                                        <BiSelectMultiple></BiSelectMultiple>
-                                        My Selected Classes</ActiveLink></li>
+                            <li><ActiveLink to="/dashboard/allclasses">
+                                <FaTasks></FaTasks>Manage Classes</ActiveLink></li>
+                        </> || isInstructor && <>
+                            <li><ActiveLink to="/dashboard/addclass">
+                                <BsDatabaseFillAdd></BsDatabaseFillAdd>
+                                Add a Class</ActiveLink></li>
 
-                                    <li><ActiveLink to="/dashboard/payment">
-                                        <MdPayment></MdPayment>Payment</ActiveLink></li>
+                            <li><ActiveLink to="/dashboard/myclasses">
+                                <MdPlaylistAddCheckCircle></MdPlaylistAddCheckCircle>
+                                My Classes</ActiveLink></li>
+                        </> || <>
+                                <li><ActiveLink to="/dashboard/myclass">
+                                    <BiSelectMultiple></BiSelectMultiple>
+                                    My Selected Classes</ActiveLink></li>
 
-                                    <li><ActiveLink to="/dashboard/enrolledclass">
-                                        <IoCheckmarkDoneCircleOutline></IoCheckmarkDoneCircleOutline>
-                                        My Enrolled Classes</ActiveLink></li>
-                                </>
+                                <li><ActiveLink to="/dashboard/payment">
+                                    <MdPayment></MdPayment>Payment</ActiveLink></li>
 
+                                <li><ActiveLink to="/dashboard/enrolledclass">
+                                    <IoCheckmarkDoneCircleOutline></IoCheckmarkDoneCircleOutline>
+                                    My Enrolled Classes</ActiveLink></li>
+                            </>
                         }
-
-
-
-                        {/* Instructor */}
-
-
-                        {/*  {
-                            isInstructor ?
-                                <>
-                                    <li><ActiveLink to="/dashboard/addclass">
-                                        <BsDatabaseFillAdd></BsDatabaseFillAdd>
-                                        Add a Class</ActiveLink></li>
-
-                                    <li><ActiveLink to="/dashboard/myclasses">
-                                        <MdPlaylistAddCheckCircle></MdPlaylistAddCheckCircle>
-                                        My Classes</ActiveLink></li>
-                                </> :
-
-                                <>
-                                    <li><ActiveLink to="/dashboard/myclass">
-                                        <BiSelectMultiple></BiSelectMultiple>
-                                        My Selected Classes</ActiveLink></li>
-
-                                    <li><ActiveLink to="/dashboard/payment">
-                                        <MdPayment></MdPayment>Payment</ActiveLink></li>
-
-                                    <li><ActiveLink to="/dashboard/enrolledclass">
-                                        <IoCheckmarkDoneCircleOutline></IoCheckmarkDoneCircleOutline>
-                                        My Enrolled Classes</ActiveLink></li>
-                                </>
-                        } */}
 
 
                         <div className='w-72 my-10 border-b-2 border-white mx-auto'></div>
