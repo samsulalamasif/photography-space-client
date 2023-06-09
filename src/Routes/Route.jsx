@@ -6,6 +6,7 @@ import Login from "../Pages/Login and Registaion/Login/Login";
 import Registration from "../Pages/Login and Registaion/Registration/Registration";
 import Dashboard from "../Layouts/Dashboard";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
     {
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "allusers",
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             }
         ]
     }
