@@ -4,6 +4,8 @@ import Main from "../Layouts/Main";
 import Error from "../Pages/Error/Error";
 import Login from "../Pages/Login and Registaion/Login/Login";
 import Registration from "../Pages/Login and Registaion/Registration/Registration";
+import Dashboard from "../Layouts/Dashboard";
+import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +25,16 @@ const router = createBrowserRouter([
                 path: 'registration',
                 element: <Registration></Registration>
             },
+        ]
+    },
+    {
+        path: "dashboard",
+        element: <Dashboard></Dashboard>,
+        children: [
+            {
+                path: "allusers",
+                element: <AllUsers></AllUsers>
+            }
         ]
     }
 ])

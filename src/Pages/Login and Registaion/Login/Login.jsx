@@ -5,6 +5,7 @@ import { set, useForm } from 'react-hook-form';
 import useAuth from '../../../components/Hooks/useAuth';
 import Swal from 'sweetalert2';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import { Helmet } from 'react-helmet-async';
 
 
 const Login = () => {
@@ -44,6 +45,9 @@ const Login = () => {
 
     return (
         <div className="hero h-[100vh]" style={{ backgroundImage: `url(${loginImg})` }}>
+            <Helmet>
+                <title>Photograph Space | Login</title>
+            </Helmet>
 
             <div className="card bg-base-100">
                 <form onSubmit={handleSubmit(onSubmit)} className="card-body ">
