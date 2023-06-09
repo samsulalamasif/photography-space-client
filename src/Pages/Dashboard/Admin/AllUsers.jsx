@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { FaUserGraduate, FaUserShield } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../components/Hooks/useAxiosSecure';
+import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 
 const AllUsers = () => {
     const [axiosSecure] = useAxiosSecure()
@@ -69,6 +70,7 @@ const AllUsers = () => {
             <Helmet>
                 <title>Photograph Space | Manage Users</title>
             </Helmet>
+            <SectionTitle title={"Manage Users"}></SectionTitle>
             <h2 className='text-sky-700 font-semibold text-center font-serif text-5xl'>Total users: {users.length}</h2>
             <div>
                 <div className="overflow-x-auto my-20 px-10">

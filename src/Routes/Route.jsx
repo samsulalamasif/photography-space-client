@@ -7,6 +7,8 @@ import Registration from "../Pages/Login and Registaion/Registration/Registratio
 import Dashboard from "../Layouts/Dashboard";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 import AdminRoute from "./AdminRoute";
+import InstructorRoute from "./InstructorRoute";
+import AddClass from "../Pages/Dashboard/Instructor/AddClass";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: "allusers",
                 element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: "addclass",
+                element: <InstructorRoute><AddClass></AddClass></InstructorRoute>
             }
         ]
     }
