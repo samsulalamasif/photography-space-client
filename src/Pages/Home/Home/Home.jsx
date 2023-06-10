@@ -12,7 +12,6 @@ const Home = () => {
                 <title>Photograph Space | Home</title>
             </Helmet>
 
-
             <Banner></Banner>
             <PopularClasses></PopularClasses>
             <PopularInstructors></PopularInstructors>

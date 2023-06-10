@@ -19,7 +19,7 @@ const AddClass = () => {
 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
-        // console.log(data);
+        console.log(data);
         const formData = new FormData()
         formData.append("image", data.image[0])
 
@@ -31,13 +31,13 @@ const AddClass = () => {
             .then(imgResponse => {
                 if (imgResponse.success) {
                     const imgURL = imgResponse.data.display_url
-                    // console.log(imgURL);
+                    console.log(imgURL);
                     const { availableSeat, className, feedback, price,
-                        status, userEmail, userName } = data
+                        status, email, userName } = data
 
                     const newClass = {
                         availableSeat, className, feedback,
-                        image: imgURL, price: parseFloat(price), status, userEmail, userName
+                        image: imgURL, price: parseFloat(price), status, email, userName
                     }
                     // console.log(newClass);
 
@@ -118,7 +118,7 @@ const AddClass = () => {
                         <label className="label">
                             <span className="text-lg font-semibold">Instructor email</span>
                         </label>
-                        <input type="text" {...register("userEmail")}
+                        <input type="text" {...register("email")}
                             defaultValue={user?.email} readOnly
                             placeholder="Instructor email" className="input input-bordered w-full max-w-xs" />
                     </div>

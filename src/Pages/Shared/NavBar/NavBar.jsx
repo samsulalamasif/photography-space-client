@@ -9,8 +9,8 @@ const NavBar = () => {
 
     const routeItem = <>
         <li><ActiveLink to="/">Home</ActiveLink></li>
-        <li><ActiveLink to="instructors">Instructors</ActiveLink></li>
-        <li><ActiveLink to="classes">Classes</ActiveLink></li>
+        <li><ActiveLink to="/instructors">Instructors</ActiveLink></li>
+        <li><ActiveLink to="/classes">Classes</ActiveLink></li>
         {user && <li><ActiveLink to="/dashboard">Dashboard</ActiveLink></li>}
     </>
 

@@ -41,7 +41,7 @@ const Dashboard = () => {
                             <li><ActiveLink to="/dashboard/allusers"><HiUserGroup>
                             </HiUserGroup>Manage Users</ActiveLink></li>
 
-                            <li><ActiveLink to="/dashboard/allclasses">
+                            <li><ActiveLink to="/dashboard/manageclasses">
                                 <FaTasks></FaTasks>Manage Classes</ActiveLink></li>
                         </> || isInstructor && <>
                             <li><ActiveLink to="/dashboard/addclass">
