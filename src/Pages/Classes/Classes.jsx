@@ -3,16 +3,56 @@ import { Helmet } from 'react-helmet-async';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import useAxiosSecure from '../../components/Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import Swal from 'sweetalert2';
+import useAuth from '../../components/Hooks/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Classes = () => {
+    const { user } = useAuth()
     const [axiosSecure] = useAxiosSecure()
+    const location = useLocation()
+    const navigate = useNavigate()
 
     const { data: classes = [], refetch } = useQuery(["classes"], async () => {
         const res = await axiosSecure.get("/allClass")
-
         return res.data
     })
 
+
+    const handleSelectClass = cls => {
+        console.log(cls);
+        if (user && user.email) {
+
+            axiosSecure.post("/carts", cls)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        refetch();
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Class select successfully.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                })
+        }
+        else {
+            Swal.fire({
+                title: 'Please login to select the class',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Login now!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/login', { state: { from: location } })
+                }
+            })
+        }
+
+    }
 
 
     return (
@@ -27,14 +67,16 @@ const Classes = () => {
                         <div className="card w-96 bg-base-100 mx-auto shadow-xl" key={cls._id}>
                             <figure><img className='h-72' src={cls.image} alt="" /></figure>
                             <div className="card-body">
-                                <h2 className="text-xl text-center font-bold text-sky-700">{cls.className}</h2>
-                                <div>
-                                    <p>Instructor Name: {cls.userName}</p>
-                                    <p>Price: {cls.price}</p>
-                                    <p>Available Seats: {cls.availableSeat}</p>
+                                <h2 className="text-lg font-serif text-center font-bold text-sky-700">{cls.className}</h2>
+                                <div className='my-3'>
+                                    <p className='text-lg font-bold'>Instructor Name: {cls.userName}</p>
+                                    <p className='font-semibold'>Price: ${cls.price}</p>
+                                    <p className='font-semibold'>Available Seats: {cls.availableSeat}</p>
                                 </div>
-                                <div className="card-actions justify-end">
-                                    <button className="btn btn-primary">Buy Now</button>
+                                <div className="card-actions justify-center">
+                                    <button onClick={() => handleSelectClass(cls)}
+                                        className="btn bg-sky-700 text-white border-0 mt-3">
+                                        Select Class</button>
                                 </div>
                             </div>
                         </div>
