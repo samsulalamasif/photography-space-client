@@ -6,9 +6,14 @@ import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import useAuth from '../../components/Hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useAdmin from '../../components/Hooks/useAdmin';
+import useInstructor from '../../components/Hooks/useInstructor';
 
 const Classes = () => {
     const { user } = useAuth()
+    const [isAdmin] = useAdmin()
+    const [isInstructor] = useInstructor()
+
     const [axiosSecure] = useAxiosSecure()
     const location = useLocation()
     const navigate = useNavigate()
@@ -74,13 +79,13 @@ const Classes = () => {
                                     <p className='font-semibold'>Available Seats: {cls.availableSeat}</p>
                                 </div>
                                 <div className="card-actions justify-center">
-                                    <button onClick={() => handleSelectClass(cls)}
+                                    <button disabled={isAdmin || isInstructor}
+                                        onClick={() => handleSelectClass(cls)}
                                         className="btn bg-sky-700 text-white border-0 mt-3">
                                         Select Class</button>
                                 </div>
                             </div>
                         </div>
-
                     )}
             </div>
 

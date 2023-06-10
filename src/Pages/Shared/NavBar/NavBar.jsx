@@ -3,6 +3,7 @@ import ActiveLink from './ActiveLink/ActiveLink';
 import { Link } from 'react-router-dom';
 import logo from "../../../assets/icon.png"
 import useAuth from '../../../components/Hooks/useAuth';
+import DarkLight from './DarkLight';
 
 const NavBar = () => {
     const { user, logOut } = useAuth()
@@ -49,6 +50,9 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
+
+                <DarkLight></DarkLight>
+
                 {user && <div className="tooltip tooltip-left" data-tip={user.displayName}>
                     <img className='w-14 h-14 p-2 rounded-full' src={user.photoURL} />
                 </div>}
