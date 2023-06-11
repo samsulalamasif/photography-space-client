@@ -42,7 +42,7 @@ const FeaturesSection = () => {
                     </div>
                 </div>
                 <div className='lg:w-1/2 mx-auto '>
-                    <img className='h-[500px] w-full rounded-lg' src={featuresImg} alt="" />
+                    <img className='h-[485px] w-full rounded-lg' src={featuresImg} alt="" />
                 </div>
             </div>
         </div>
