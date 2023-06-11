@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 
 const Home = () => {
     return (
-        <div>
+        <div className='max-w-screen-xl mx-auto'>
             <Helmet>
                 <title>Photograph Space | Home</title>
             </Helmet>

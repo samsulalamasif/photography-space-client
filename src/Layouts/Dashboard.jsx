@@ -52,7 +52,7 @@ const Dashboard = () => {
                                 <MdPlaylistAddCheckCircle></MdPlaylistAddCheckCircle>
                                 My Classes</ActiveLink></li>
                         </> || <>
-                                <li><ActiveLink to="/dashboard/myclass">
+                                <li><ActiveLink to="/dashboard/myselectedclasses">
                                     <BiSelectMultiple></BiSelectMultiple>
                                     My Selected Classes</ActiveLink></li>
 

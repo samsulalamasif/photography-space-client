@@ -25,10 +25,18 @@ const Classes = () => {
 
 
     const handleSelectClass = cls => {
-        console.log(cls);
-        if (user && user.email) {
+        // console.log(cls);
+        const { className, image, price, userName, email } = cls
+        const selectClass = {
+            className, image, price, instructorName: userName,
+            instructorEmail: email, email: user.email
+        }
 
-            axiosSecure.post("/carts", cls)
+
+        if (user && user.email) {
+            // console.log(cls);
+
+            axiosSecure.post("/carts", selectClass)
                 .then(res => {
                     if (res.data.insertedId) {
                         refetch();

@@ -13,7 +13,7 @@ const Error = () => {
                         <h1 className='text-white text-2xl mb-5 font-bold'>
                             Page Not Found...... <br />
                             {error?.message}</h1>
-                        <Link to="/"> <button className='btn bg-cyan-400 border-0'>Back to homepage</button>
+                        <Link to="/"> <button className='btn bg-sky-700 text-white border-0'>Back to homepage</button>
                         </Link>
                     </div>
                 </div>
