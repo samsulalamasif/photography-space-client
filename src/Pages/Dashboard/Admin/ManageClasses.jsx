@@ -5,15 +5,22 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../components/Hooks/useAxiosSecure';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import useAuth from '../../../components/Hooks/useAuth';
 
 const ManageClasses = () => {
+    const { loading } = useAuth();
     const [axiosSecure] = useAxiosSecure()
 
-    const { data: AllClasses = [], refetch } = useQuery(["classes"], async () => {
-        const res = await axiosSecure.get("/class")
-        refetch()
-        return res.data
+    const { data: AllClasses = [], } = useQuery({
+        queryKey: ['AllClasses',],
+        enabled: !loading,
+        queryFn: async () => {
+            const res = await axiosSecure.get("/class")
+            // console.log(res.data);
+            return res.data
+        }
     })
+
 
 
     const handleSubmit = (event) => {

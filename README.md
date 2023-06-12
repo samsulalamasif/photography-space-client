@@ -2,6 +2,14 @@
 # Photograph Space
 
 
+## Features:
+* A full-stack responsive react based website.
+* It includes Payment method (stripe).
+* It includes an admin dashboard. Anyone can be given instructor and can be removed again.
+* Implement MongoDB (CRUD Operations) and Firebase Authentication.
+* User can create a new account or sign in with google.
+
+
 
 
 ## ---- Used packages/technology ----
