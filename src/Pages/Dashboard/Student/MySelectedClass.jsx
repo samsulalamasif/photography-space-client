@@ -102,7 +102,7 @@ const MySelectedClass = () => {
                                         </button>
                                     </th>
                                     <th>
-                                        <Link to="/dashboard/payment"
+                                        <Link to="/dashboard/payment" state={cartData}
 
                                             className='btn bg-sky-700 text-white border-0 '>
                                             Payment

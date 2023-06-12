@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 import ActiveLink from '../Pages/Shared/NavBar/ActiveLink/ActiveLink';
 import { FaHome, FaTasks, } from "react-icons/fa";
-import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
+import { GiConfirmed } from "react-icons/gi";
 import { HiUserGroup } from "react-icons/hi";
 import { MdPayment } from "react-icons/md";
 import { MdPlaylistAddCheckCircle } from "react-icons/md";
@@ -56,12 +56,12 @@ const Dashboard = () => {
                                     <BiSelectMultiple></BiSelectMultiple>
                                     My Selected Classes</ActiveLink></li>
 
-                                <li><ActiveLink to="/dashboard/payment">
-                                    <MdPayment></MdPayment>Payment</ActiveLink></li>
-
-                                <li><ActiveLink to="/dashboard/enrolledclass">
-                                    <IoCheckmarkDoneCircleOutline></IoCheckmarkDoneCircleOutline>
+                                <li><ActiveLink to="/dashboard/myenrolledclass">
+                                    <GiConfirmed></GiConfirmed>
                                     My Enrolled Classes</ActiveLink></li>
+
+                                <li><ActiveLink to="/dashboard/paymenthistory">
+                                    <MdPayment></MdPayment>Payment History</ActiveLink></li>
                             </>
                         }
 

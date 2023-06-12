@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import useAxiosSecure from '../../../components/Hooks/useAxiosSecure';
@@ -7,14 +7,13 @@ import { useQuery } from '@tanstack/react-query';
 
 const MyClasses = () => {
     const { user } = useAuth()
-    const [axiosSecure] = useAxiosSecure()
+    const [axiosSecure,] = useAxiosSecure()
+    const [classes, setClasses] = useState([])
 
 
-    const { data: classes = [], refetch } = useQuery(["classes"], async () => {
-        const res = await axiosSecure.get(`/myClasses/${user?.email}`)
-        refetch()
-        return res.data
-    })
+    axiosSecure.get(`/myClasses/${user?.email}`)
+        .then(res =>
+            setClasses(res.data))
 
 
 

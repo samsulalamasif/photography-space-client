@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const axiosSecure = axios.create({
-    baseURL: `http://localhost:5000`,
+    baseURL: `https://photography-space-sever-side.vercel.app`,
 
 })
 

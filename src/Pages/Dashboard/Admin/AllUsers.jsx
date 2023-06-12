@@ -5,8 +5,13 @@ import { FaUserGraduate, FaUserShield } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../../components/Hooks/useAxiosSecure';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
+import useAdmin from '../../../components/Hooks/useAdmin';
+import useInstructor from '../../../components/Hooks/useInstructor';
 
 const AllUsers = () => {
+    const [isAdmin] = useAdmin()
+    const [isInstructor] = useInstructor()
+
     const [axiosSecure] = useAxiosSecure()
 
     const { data: users = [], refetch } = useQuery(["users"], async () => {
@@ -18,7 +23,7 @@ const AllUsers = () => {
 
     // Make Admin
     const makeAdmin = (user) => {
-        fetch(`http://localhost:5000/users/admin/${user._id}`, {
+        fetch(`https://photography-space-sever-side.vercel.app/users/admin/${user._id}`, {
             method: "PATCH"
         })
             .then(res => res.json())
@@ -43,7 +48,7 @@ const AllUsers = () => {
 
     // Make Instructor
     const makeInstructor = (user) => {
-        fetch(`http://localhost:5000/users/instructor/${user._id}`, {
+        fetch(`https://photography-space-sever-side.vercel.app/users/instructor/${user._id}`, {
             method: "PATCH"
         })
             .then(res => res.json())
@@ -111,7 +116,11 @@ const AllUsers = () => {
                                     </td>
                                     <th>
                                         {
-                                            user.role === "admin" ? "Admin" :
+                                            user.role === "admin" ?
+                                                <button disabled
+                                                    className='btn bg-sky-700 text-white 
+                                        border-0 btn-sm'>Admin</button>
+                                                :
                                                 <button onClick={() => makeAdmin(user)}
                                                     className='btn bg-sky-700 text-white 
                                         border-0 btn-md'><FaUserShield></FaUserShield></button>
@@ -120,7 +129,11 @@ const AllUsers = () => {
                                     </th>
                                     <th>
                                         {
-                                            user.role === "instructor" ? "Instructor" :
+                                            user.role === "instructor" ?
+                                                < button disabled
+                                                    className='btn bg-lime-600 text-white 
+                                        border-0 btn-sm'>Instructor</button>
+                                                :
                                                 <button onClick={() => makeInstructor(user)}
                                                     className='btn bg-lime-600 text-white 
                                         border-0 btn-md'><FaUserGraduate></FaUserGraduate></button>
