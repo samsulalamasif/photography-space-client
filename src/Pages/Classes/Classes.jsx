@@ -29,7 +29,7 @@ const Classes = () => {
         const { className, image, price, userName, email } = cls
         const selectClass = {
             className, image, price, instructorName: userName,
-            instructorEmail: email, email: user.email
+            instructorEmail: email, email: user?.email
         }
 
 
@@ -74,7 +74,7 @@ const Classes = () => {
                 <title>Photograph Space | Classes</title>
             </Helmet>
             <SectionTitle title={"All Classes"}></SectionTitle>
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 space-y-3 mb-20'>
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-4  mb-20'>
                 {
                     classes.map(cls =>
                         <div className="card w-96 bg-base-100 mx-auto shadow-xl" key={cls._id}>
