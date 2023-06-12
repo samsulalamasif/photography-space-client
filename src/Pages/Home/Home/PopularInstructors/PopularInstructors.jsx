@@ -2,14 +2,28 @@ import React from 'react';
 import SectionTitle from '../../../../components/SectionTitle/SectionTitle';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../../components/Hooks/useAxiosSecure';
+import useAuth from '../../../../components/Hooks/useAuth';
 
 const PopularInstructors = () => {
     const [axiosSecure] = useAxiosSecure()
+    const { loading } = useAuth();
 
-    const { data: Instructors = [], refetch } = useQuery(["Instructors"], async () => {
-        const res = await axiosSecure.get("/allInstructor")
-        return res.data
+
+
+    const { data: Instructors = [], } = useQuery({
+        queryKey: ['Instructors'],
+        enabled: !loading,
+        queryFn: async () => {
+            const res = await axiosSecure.get("/allInstructor")
+            // console.log(res.data);
+            return res.data
+        }
     })
+
+
+
+
+
 
 
     return (

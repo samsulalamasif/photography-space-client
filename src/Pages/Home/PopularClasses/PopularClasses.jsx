@@ -3,19 +3,27 @@ import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import useAxiosSecure from '../../../components/Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../components/Hooks/useAuth';
 
 const PopularClasses = () => {
     const [axiosSecure] = useAxiosSecure()
+    const { loading } = useAuth();
 
-    const { data: classes = [], refetch } = useQuery(["classes"], async () => {
-        const res = await axiosSecure.get("/allClass")
-        return res.data
+
+    const { data: classes = [], } = useQuery({
+        queryKey: ['classes'],
+        enabled: !loading,
+        queryFn: async () => {
+            const res = await axiosSecure.get("/allClass")
+            return res.data
+        }
     })
+
+
 
     return (
         <div>
             <SectionTitle title={"Our Popular Classes"}></SectionTitle>
-            <h1 className='font-bold'>Popular Classes</h1>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-4 space-y-3 mb-20'>
                 {
                     classes.slice(0, 6).map(cls =>

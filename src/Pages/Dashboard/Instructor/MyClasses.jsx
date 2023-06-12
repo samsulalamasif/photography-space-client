@@ -12,8 +12,9 @@ const MyClasses = () => {
 
 
     axiosSecure.get(`/myClasses/${user?.email}`)
-        .then(res =>
-            setClasses(res.data))
+        .then(res => {
+            setClasses(res.data)
+        })
 
 
 

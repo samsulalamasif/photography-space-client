@@ -1,20 +1,26 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import useAxiosSecure from '../../../components/Hooks/useAxiosSecure';
-import useAuth from '../../../components/Hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
+import useAuth from '../../../components/Hooks/useAuth';
 
 const PaymentHistory = () => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const [axiosSecure] = useAxiosSecure()
 
 
-    const { data: Paid = [], } = useQuery(["paid"], async () => {
-        const res = await axiosSecure.get(`/payments?email=${user?.email}`)
-        // console.log(res.data);
-        return res.data
+    const { data: Paid = [], } = useQuery({
+        queryKey: ['Paid', user?.email],
+        enabled: !loading,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/payments?email=${user?.email}`);
+            // console.log(res.data);
+            return res.data
+        }
     })
+
+
+
 
 
     return (
@@ -58,7 +64,6 @@ const PaymentHistory = () => {
                                 </td>
                             </tr>)
                         }
-
                     </tbody>
 
 
@@ -69,3 +74,4 @@ const PaymentHistory = () => {
 };
 
 export default PaymentHistory;
+
